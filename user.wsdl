@@ -1,0 +1,92 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="User"
+             targetNamespace="urn:User"
+             xmlns:tns="urn:User"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+
+    <message name="getUserRequest">
+        <part name="params" type="xsd:string"/>
+    </message>
+
+    <message name="getUserResponse">
+        <part name="result" type="xsd:string"/>
+    </message>
+
+    <message name="ActivateUserRequest">
+        <part name="params" type="xsd:string"/>
+    </message>
+
+    <message name="ActivateUserResponse">
+        <part name="result" type="xsd:string"/>
+    </message>
+
+    <message name="DeactivateUserRequest">
+        <part name="params" type="xsd:string"/>
+    </message>
+
+    <message name="DeactivateUserResponse">
+        <part name="result" type="xsd:string"/>
+    </message>
+
+    <message name="AddUserRequest">
+        <part name="username" type="xsd:string"/>
+        <part name="password" type="xsd:string"/>
+        <part name="email" type="xsd:string"/>
+    </message>
+
+    <message name="AddUserResponse">
+        <part name="result" type="xsd:string"/>
+    </message>
+
+    <portType name="FilterPort">
+        <operation name="getUser">
+            <input message="tns:getUserRequest"/>
+            <output message="tns:getUserResponse"/>
+        </operation>
+        <operation name="activateUser">
+            <input message="tns:ActivateUserRequest"/>
+            <output message="tns:ActivateUserResponse"/>
+        </operation>
+        <operation name="deactivateUser">
+            <input message="tns:DeactivateUserRequest"/>
+            <output message="tns:DeactivateUserResponse"/>
+        </operation>
+        <operation name="addUser">
+            <input message="tns:AddUserRequest"/>
+            <output message="tns:AddUserResponse"/>
+        </operation>
+    </portType>
+
+    <binding name="FilterBinding" type="tns:FilterPort">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="doFilter">
+            <soap:operation soapAction="urn:FilterAction"/>
+            <input>
+                <soap:body use="encoded" namespace="urn:Organization" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body use="encoded" namespace="urn:Organization" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+        <operation name="login">
+            <soap:operation soapAction="urn:LoginAction"/>
+            <input>
+                <soap:body use="encoded" namespace="urn:Organization" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </input>
+            <output>
+                <soap:body use="encoded" namespace="urn:Organization" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="WSDLService">
+        <port name="FilterPort" binding="tns:FilterBinding">
+            <soap:address location="http://localhost/api/wsdl/orgs/soap-server.php"/>
+        </port>
+    </service>
+</definitions>
