@@ -1,0 +1,8 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:v1="http://schemas.conversesolutions.com/xsd/dmticta/v1">
+<soapenv:Header/>
+<soapenv:Body>
+<v1:activateUser>
+<v1:username>usuario1</v1:username>
+</v1:activateUser>
+</soapenv:Body>
+</soapenv:Envelope>
